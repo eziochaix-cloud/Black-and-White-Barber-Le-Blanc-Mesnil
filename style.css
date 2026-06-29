@@ -1,0 +1,552 @@
+/* --- 🎨 VARIABLES DE COULEURS BLACK & WHITE BARBER --- */
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-card: #141416;
+    --bw-pure-white: #ffffff;
+    --bw-silver: #b3b3b7;
+    --bw-border: #26262b;
+}
+
+/* --- CONFIGURATION GÉNÉRALE --- */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    background-color: var(--bg-dark);
+    color: var(--bw-silver);
+    letter-spacing: 1.5px;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Classe utilitaire SEO pour cacher le H1 tout en restant lisible par Google */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+h1 {
+    color: var(--bw-pure-white);
+    font-size: 2.8rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    text-align: center;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+h2 {
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    color: var(--bw-pure-white);
+    text-align: center;
+    margin: 60px auto 40px auto;
+    width: 100%;
+}
+h2::after {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: var(--bw-pure-white);
+    margin: 12px auto 0 auto;
+}
+section {
+    padding: 80px 20px;
+    text-align: center;
+}
+#infos-generales {
+    padding-top: 140px; 
+}
+#infos-generales p {
+    max-width: 800px;
+    margin: 20px auto;
+    line-height: 1.8;
+    color: var(--bw-silver);
+}
+
+/* --- 📌 NAVIGATION BARRE FIXE --- */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--bw-border);
+}
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+}
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.nav-logo img {
+    height: 45px;
+    width: 45px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.nav-logo span {
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    color: var(--bw-pure-white);
+}
+nav a {
+    display: inline-block;
+    color: var(--bw-silver);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+nav a:hover {
+    color: var(--bw-pure-white);
+}
+
+/* ==============================================
+ALIGNEMENT HORIZONTAL ET BARRE DE GLISSEMENT DU BAS
+============================================== */
+.avis-container, .tarifs-container, .galerie-container {
+    display: flex;
+    gap: 25px;
+    padding: 20px 20px 40px 20px; /* Ajout de marge interne gauche/droite stable */
+    scroll-behavior: smooth;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start; /* Aligné à gauche par défaut pour éviter les coupures */
+    scroll-padding-left: 20px; /* Force l'alignement du scroll sur la marge de sécurité */
+}
+
+/* Sur grand écran, on centre uniquement si tout l'espace requis est disponible */
+@media screen and (min-width: 1200px) {
+    .avis-container, .tarifs-container, .galerie-container {
+        justify-content: safe center;
+    }
+}
+
+/* Style de la ligne horizontale de glissement (Scrollbar) */
+.avis-container::-webkit-scrollbar,
+.tarifs-container::-webkit-scrollbar,
+.galerie-container::-webkit-scrollbar {
+    height: 8px;
+}
+.avis-container::-webkit-scrollbar-track,
+.tarifs-container::-webkit-scrollbar-track,
+.galerie-container::-webkit-scrollbar-track {
+    background: #16161a;
+    border-radius: 10px;
+}
+.avis-container::-webkit-scrollbar-thumb,
+.tarifs-container::-webkit-scrollbar-thumb,
+.galerie-container::-webkit-scrollbar-thumb {
+    background: var(--bw-pure-white);
+    border-radius: 10px;
+}
+
+/* --- LE SYSTEME DE GRILLE CÔTE À CÔTE --- */
+.side-by-side-grid {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 50px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+.grid-left, .grid-right {
+    flex: 1;
+    min-width: 300px;
+}
+.text-left-desktop {
+    text-align: left;
+}
+.text-left-desktop h3 {
+    color: var(--bw-pure-white);
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+/* --- AVANTAGES --- */
+.avantages {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.avantage {
+    border-left: 4px solid var(--bw-pure-white);
+    background: var(--bg-card);
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    font-weight: bold;
+    text-align: left;
+}
+
+/* --- PRESTATIONS / CARTES --- */
+.carte {
+    background: var(--bg-card);
+    border: 1px solid var(--bw-border);
+    border-radius: 12px;
+    width: 250px;
+    padding: 35px;
+    text-align: center;
+    transition: 0.3s ease;
+    flex-shrink: 0;
+}
+.carte:hover {
+    border-color: var(--bw-pure-white);
+    transform: translateY(-5px);
+}
+.carte span {
+    color: var(--bw-pure-white);
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+.carte h3 {
+    margin-top: 0;
+    font-size: 1.4rem;
+    color: var(--bw-pure-white);
+}
+
+/* --- GALERIE --- */
+.galerie-container img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: 0.3s;
+    border: 1px solid var(--bw-border);
+    flex-shrink: 0;
+}
+.galerie-container img:hover {
+    border-color: var(--bw-pure-white);
+}
+
+/* --- COMPOSANT DES AVIS --- */
+.avis {
+    min-width: 320px;
+    max-width: 320px;
+    background: var(--bg-card);
+    border: 1px solid var(--bw-border);
+    border-radius: 12px;
+    padding: 25px;
+    flex-shrink: 0;
+    text-align: left;
+}
+.avis p {
+    font-style: italic;
+    line-height: 1.6;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--bw-silver);
+}
+.avis h4 {
+    color: var(--bw-pure-white);
+    margin: 0;
+    font-size: 16px;
+}
+.avis h5 {
+    color: #666;
+    font-size: 13px;
+    font-weight: normal;
+    margin-top: 6px;
+    margin-bottom: 0;
+}
+
+/* --- BOUTONS --- */
+button, .bouton-itineraire {
+    background-color: var(--bw-pure-white);
+    color: var(--bg-dark);
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    margin: 10px 5px;
+    display: inline-block;
+    text-decoration: none;
+}
+button:hover, .bouton-itineraire:hover {
+    background-color: #e5e5e5;
+}
+
+/* --- MAPS & BLOCS INFOS --- */
+iframe {
+    width: 100%;
+    height: 320px;
+    border-radius: 12px;
+    display: block;
+}
+.itineraires {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+.adresse-texte, .transports-bloc {
+    background: var(--bg-card);
+    border: 1px solid var(--bw-border);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+}
+.adresse-texte p {
+    margin: 0;
+    line-height: 1.6;
+    color: var(--bw-silver);
+}
+.transports-container {
+    text-align: left;
+}
+.transport-card {
+    border-bottom: 1px solid var(--bw-border);
+    padding: 10px 0;
+}
+.transport-card:last-child {
+    border: none;
+}
+
+/* --- APPEL DIRECT --- */
+.bloc-appel-direct {
+    background: var(--bg-card);
+    padding: 40px 25px;
+    border-radius: 12px;
+    border: 1px solid var(--bw-border);
+    text-align: center;
+}
+.bloc-appel-direct h3 {
+    margin-top: 0;
+    color: var(--bw-pure-white);
+}
+.tel-numero {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--bw-pure-white);
+    letter-spacing: 2px;
+    margin: 20px 0;
+}
+.bouton-appel-gros {
+    background-color: var(--bw-pure-white);
+    color: var(--bg-dark);
+    border: none;
+    padding: 18px 32px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+    transition: 0.3s;
+}
+.note-envoi {
+    font-style: italic;
+    color: #666;
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+/* --- RÉSEAUX --- */
+.reseaux-container {
+    display: flex;
+    justify-content: center;
+}
+.reseau {
+    font-size: 50px;
+    color: var(--bw-pure-white);
+    transition: 0.3s;
+}
+
+/* --- HORAIRES --- */
+#horaires-bande {
+    background-color: var(--bg-card);
+    color: var(--bw-silver);
+    padding: 60px 20px 30px 20px;
+    margin-top: 80px;
+    border-top: 1px solid var(--bw-border);
+}
+#horaires-bande h2 {
+    color: var(--bw-pure-white);
+    margin-bottom: 35px;
+}
+#horaires-bande h2::after {
+    display: none;
+}
+.grille-horaires {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.colonne-jour {
+    background: #1a1a1e;
+    padding: 20px 10px;
+    border-radius: 8px;
+    border-top: 4px solid var(--bw-pure-white);
+    flex: 1;
+    min-width: 95px;
+}
+.colonne-jour h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    color: var(--bw-pure-white);
+}
+.colonne-jour p {
+    margin: 4px 0;
+    font-size: 0.95rem;
+}
+.credits-footer {
+    margin-top: 50px;
+    border-top: 1px solid var(--bw-border);
+    padding-top: 20px;
+}
+
+/* --- RETOUR EN HAUT --- */
+.bouton-retour-haut {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--bg-card);
+    color: var(--bw-pure-white);
+    padding: 15px 20px;
+    border-radius: 50%;
+    font-size: 24px;
+    text-decoration: none;
+    z-index: 1000;
+    border: 1px solid var(--bw-border);
+}
+
+/* --- 🎛️ GESTION DES FLÈCHES DE NAVIGATION --- */
+.slider-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+}
+.fleche-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--bw-border);
+    color: var(--bw-pure-white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.fleche-nav.gauche { left: -10px; }
+.fleche-nav.droite { right: -10px; }
+
+/* ❌ SUR PC (DESKTOP) : AUCUNE FLÈCHE REQUIS */
+@media screen and (min-width: 769px) {
+    .fleche-nav {
+        display: none !important;
+    }
+}
+
+/* --- 📱 CONFIGURATION POUR MOBILE & TABLETTE --- */
+@media screen and (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #infos-generales {
+        padding-top: 180px; 
+    }
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.5rem; }
+
+    /* Correction majeure de l'alignement mobile */
+    .avis-container, .tarifs-container, .galerie-container {
+        justify-content: flex-start;
+        scroll-snap-type: x mandatory;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    /* Changement du snap de center vers start pour éviter la coupure au démarrage */
+    .avis, .tarifs-container .carte, .galerie-container img {
+        flex: 0 0 85%; 
+        max-width: 85%;
+        min-width: 85%;
+        scroll-snap-align: start;
+    }
+
+    /* Activation et ajustement des flèches tarifs sur mobile pour ne pas chevaucher */
+    #prix .fleche-nav {
+        display: flex;
+    }
+    #prix .fleche-nav.gauche { left: 5px; }
+    #prix .fleche-nav.droite { right: 5px; }
+
+    .side-by-side-grid {
+        flex-direction: column;
+        gap: 35px;
+    }
+    .grid-left, .grid-right {
+        width: 100%;
+    }
+    .text-left-desktop, .adresse-texte, .transports-bloc, .transports-container {
+        text-align: center !important;
+    }
+    .transport-card p {
+        display: inline-block;
+    }
+    iframe {
+        height: 250px;
+    }
+    .bouton-appel-gros {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* --- STYLE DU NOUVEAU LOGO TEXTE EN ACCUEIL --- */
+.hero-logo-text {
+    max-width: 500px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.05));
+    transition: transform 0.3s ease;
+}
+
+.hero-logo-text:hover {
+    transform: scale(1.02);
+}
+
+/* --- ADAPTATION MOBILE POUR LE LOGO TEXTE --- */
+@media screen and (max-width: 768px) {
+    .hero-logo-text {
+        max-width: 320px;
+    }
+}
