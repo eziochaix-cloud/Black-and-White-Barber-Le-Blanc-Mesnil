@@ -73,7 +73,7 @@
         <h2>Pourquoi choisir Black & White ?</h2>
         <div class="avantages">
             <div class="avantage">✓ Hygiène irréprochable (matériel désinfecté)</div>
-            <div class="avantage">✓ Salon Mixte & Barbier sur-mesure</div>
+            <div class="avantage">✓ Coiffure & Barbier sur-mesure pour hommes</div>
             <div class="avantage">✓ Café & Thé offerts à l'accueil</div>
         </div>
     </section>
@@ -104,6 +104,7 @@
 
             <button class="fleche-nav droite" onclick="document.getElementById('tarifs-list').scrollBy({left: 280, behavior: 'smooth'})">❯</button>
         </div>
+        <p style="margin-top: 25px; font-size: 0.95rem; color: var(--bw-silver);">💳 Modes de paiement acceptés : Espèces et Carte Bancaire</p>
     </section>
 
     <section id="galerie">
@@ -223,8 +224,15 @@
         <div class="side-by-side-grid">
             <div class="grid-left text-left-desktop">
                 <h3>Passez quand vous voulez !</h3>
-                <p>Le salon fonctionne <strong>exclusivement sans rendez-vous</strong>. Installez-vous confortablement, on s'occupe de vous dans les plus brefs délais.</p>
-                <p>Une question sur l'attente actuelle ou besoin d'un renseignement précis ? Nos coiffeurs vous répondent directement au téléphone.</p>
+                <p>Le salon fonctionne <strong>exclusivement sans rendez-vous</strong>. Retrouvez Amine et son équipe de passionnés pour un fondu ou un tracé de barbe au millimètre.</p>
+                
+                <div class="widget-affluence">
+                    <div class="affluence-header">
+                        <span class="affluence-titre">📊 Affluence estimée :</span>
+                        <span id="affluence-badge" class="badge-loading">Calcul en cours...</span>
+                    </div>
+                    <p id="affluence-text" class="affluence-desc">Analyse des horaires du salon en cours...</p>
+                </div>
             </div>
 
             <div class="grid-right">
@@ -232,17 +240,21 @@
                     <h3><i class="fa-solid fa-phone-volume"></i> Ligne Directe</h3>
                     <p class="tel-numero">06 62 35 37 50</p>
                     <a href="tel:0662353750" class="bouton-appel-gros">Appeler le salon maintenant 📞</a>
-                    <p class="note-envoi">Accueil téléphonique immédiat</p>
+                    <p class="note-envoi">Des doutes sur l'attente ? Nos coiffeurs vous répondent en direct.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="reseaux">
-        <h2>Suivez-nous</h2>
+        <h2>Suivez-nous sur Instagram</h2>
+        <p class="instagram-pitch">
+            Visionnez nos derniers dégradés à blanc, designs capillaires et l'ambiance du salon au quotidien !
+        </p>
         <div class="reseaux-container">
             <a href="https://www.instagram.com/blacknwhitebarber93150/" target="_blank" class="reseau instagram">
                 <i class="fa-brands fa-instagram"></i>
+                <span class="insta-handle">@blacknwhitebarber93150</span>
             </a>
         </div>
     </section>
@@ -271,6 +283,54 @@
     </div>
 </section>
 
+<a href="tel:0662353750" class="bouton-appel-flottant" title="Appeler le salon">📞</a>
 <a href="#" class="bouton-retour-haut">↑</a>
+
+<script>
+function calculerAffluence() {
+    const maintenant = new Date();
+    const jour = maintenant.getDay(); // 0 = Dimanche, 1 = Lundi, etc.
+    const heure = maintenant.getHours();
+    const minute = maintenant.getMinutes();
+    
+    const badge = document.getElementById('affluence-badge');
+    const texte = document.getElementById('affluence-text');
+    
+    if(!badge || !texte) return;
+
+    // Le salon est ouvert de 10h00 à 20h00, 7j/7
+    if (heure >= 10 && heure < 20) {
+        if (jour === 5 || jour === 6 || jour === 0) { 
+            // Vendredi, Samedi, Dimanche = Grosses journées
+            badge.className = "badge-affluence status-rouge";
+            badge.innerText = "🔥 Forte affluence";
+            texte.innerText = "Période de week-end très demandée. Un peu d'attente est à prévoir, mais l'équipe dépote !";
+        } else if (heure >= 12 && heure < 14) {
+            // Pause déjeuner en semaine
+            badge.className = "badge-affluence status-orange";
+            badge.innerText = "⚡ Affluence modérée";
+            texte.innerText = "C'est la pause déjeuner. Attente raisonnable, installez-vous confortablement.";
+        } else if (heure >= 17 && heure < 19) {
+            // Sortie de boulot / école en semaine
+            badge.className = "badge-affluence status-orange";
+            badge.innerText = "⚡ Affluence modérée";
+            texte.innerText = "Créneau de fin de journée. Un peu de passage, les coiffeurs s'occupent de vous rapidement.";
+        } else {
+            // Matinées et après-midis en semaine
+            badge.className = "badge-affluence status-vert";
+            badge.innerText = "🟢 Affluence faible";
+            texte.innerText = "C'est le moment idéal ! Très peu d'attente, passez directement sur le fauteuil.";
+        }
+    } else {
+        // Salon fermé
+        badge.className = "badge-affluence status-gris";
+        badge.innerText = "💤actuellement fermé";
+        texte.innerText = "Le salon réouvre ses portes demain à 10h00 pile sans rendez-vous.";
+    }
+}
+// Lancement du calcul au chargement de la page
+document.addEventListener('DOMContentLoaded', calculerAffluence);
+</script>
+
 </body>
 </html>

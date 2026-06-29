@@ -128,13 +128,13 @@ ALIGNEMENT HORIZONTAL ET BARRE DE GLISSEMENT DU BAS
 .avis-container, .tarifs-container, .galerie-container {
     display: flex;
     gap: 25px;
-    padding: 20px 20px 40px 20px; /* Ajout de marge interne gauche/droite stable */
+    padding: 20px 20px 40px 20px; 
     scroll-behavior: smooth;
     flex-wrap: nowrap;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    justify-content: flex-start; /* Aligné à gauche par défaut pour éviter les coupures */
-    scroll-padding-left: 20px; /* Force l'alignement du scroll sur la marge de sécurité */
+    justify-content: flex-start;
+    scroll-padding-left: 20px;
 }
 
 /* Sur grand écran, on centre uniquement si tout l'espace requis est disponible */
@@ -366,17 +366,6 @@ iframe {
     font-size: 0.9rem;
 }
 
-/* --- RÉSEAUX --- */
-.reseaux-container {
-    display: flex;
-    justify-content: center;
-}
-.reseau {
-    font-size: 50px;
-    color: var(--bw-pure-white);
-    transition: 0.3s;
-}
-
 /* --- HORAIRES --- */
 #horaires-bande {
     background-color: var(--bg-card);
@@ -424,7 +413,7 @@ iframe {
     padding-top: 20px;
 }
 
-/* --- RETOUR EN HAUT --- */
+/* --- 🎛️ RETOUR EN HAUT (FIXE À DROITE) --- */
 .bouton-retour-haut {
     position: fixed;
     bottom: 30px;
@@ -436,6 +425,26 @@ iframe {
     font-size: 24px;
     text-decoration: none;
     z-index: 1000;
+    border: 1px solid var(--bw-border);
+}
+
+/* --- 📞 NOUVEAU : BOUTON D'APPEL FLOTTANT (FIXE À GAUCHE SUR MOBILE UNIQUEMENT) --- */
+.bouton-appel-flottant {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background-color: var(--bw-pure-white);
+    color: var(--bg-dark);
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 24px;
+    text-decoration: none;
+    z-index: 1000;
+    display: none; /* Caché par défaut sur PC */
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
     border: 1px solid var(--bw-border);
 }
 
@@ -485,7 +494,11 @@ iframe {
     h1 { font-size: 2.2rem; }
     h2 { font-size: 1.5rem; }
 
-    /* Correction majeure de l'alignement mobile */
+    /* Rendre visible le bouton d'appel sur smartphone */
+    .bouton-appel-flottant {
+        display: flex;
+    }
+
     .avis-container, .tarifs-container, .galerie-container {
         justify-content: flex-start;
         scroll-snap-type: x mandatory;
@@ -493,7 +506,6 @@ iframe {
         padding-right: 20px;
     }
     
-    /* Changement du snap de center vers start pour éviter la coupure au démarrage */
     .avis, .tarifs-container .carte, .galerie-container img {
         flex: 0 0 85%; 
         max-width: 85%;
@@ -501,7 +513,6 @@ iframe {
         scroll-snap-align: start;
     }
 
-    /* Activation et ajustement des flèches tarifs sur mobile pour ne pas chevaucher */
     #prix .fleche-nav {
         display: flex;
     }
@@ -515,7 +526,7 @@ iframe {
     .grid-left, .grid-right {
         width: 100%;
     }
-    .text-left-desktop, .adresse-texte, .transports-bloc, .transports-container {
+    .text-left-desktop, .adresse-texte, .transports-bloc, .transports-container, .widget-affluence {
         text-align: center !important;
     }
     .transport-card p {
@@ -539,14 +550,84 @@ iframe {
     filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.05));
     transition: transform 0.3s ease;
 }
-
 .hero-logo-text:hover {
     transform: scale(1.02);
 }
 
-/* --- ADAPTATION MOBILE POUR LE LOGO TEXTE --- */
 @media screen and (max-width: 768px) {
     .hero-logo-text {
         max-width: 320px;
     }
+}
+
+/* --- 📊 STYLE DU BLOC D'AFFLUENCE JAVASCRIPT --- */
+.widget-affluence {
+    background: var(--bg-card);
+    border: 1px solid var(--bw-border);
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    text-align: left;
+}
+.affluence-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+.affluence-titre {
+    font-weight: 600;
+    color: var(--bw-pure-white);
+}
+.badge-loading {
+    background: #26262b;
+    color: var(--bw-silver);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+.badge-affluence {
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+.status-vert { background-color: #1b4322; color: #52fa7c; border: 1px solid #236130; }
+.status-orange { background-color: #4d3310; color: #ffb84d; border: 1px solid #6e4917; }
+.status-rouge { background-color: #471818; color: #ff6b6b; border: 1px solid #6b2424; }
+.status-gris { background-color: #1f1f24; color: #8c8c96; border: 1px solid #33333a; }
+.affluence-desc {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--bw-silver);
+}
+
+/* --- 📸 NOUEAU DESIGN DE LA SECTION INSTAGRAM --- */
+.instagram-pitch {
+    max-width: 650px;
+    margin: -15px auto 30px auto;
+    line-height: 1.7;
+    color: var(--bw-silver);
+}
+.reseau.instagram {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    gap: 10px;
+}
+.reseau.instagram:hover {
+    transform: scale(1.05);
+}
+.insta-handle {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--bw-pure-white);
+    letter-spacing: 1px;
 }
