@@ -20,7 +20,6 @@ body {
     padding: 0;
 }
 
-/* Classe utilitaire SEO pour cacher le H1 tout en restant lisible par Google */
 .visually-hidden {
     position: absolute;
     width: 1px;
@@ -137,14 +136,12 @@ ALIGNEMENT HORIZONTAL ET BARRE DE GLISSEMENT DU BAS
     scroll-padding-left: 20px;
 }
 
-/* Sur grand écran, on centre uniquement si tout l'espace requis est disponible */
 @media screen and (min-width: 1200px) {
     .avis-container, .tarifs-container, .galerie-container {
         justify-content: safe center;
     }
 }
 
-/* Style de la ligne horizontale de glissement (Scrollbar) */
 .avis-container::-webkit-scrollbar,
 .tarifs-container::-webkit-scrollbar,
 .galerie-container::-webkit-scrollbar {
@@ -237,9 +234,11 @@ ALIGNEMENT HORIZONTAL ET BARRE DE GLISSEMENT DU BAS
     transition: 0.3s;
     border: 1px solid var(--bw-border);
     flex-shrink: 0;
+    cursor: pointer; /* Curseur main pour inciter au clic */
 }
 .galerie-container img:hover {
     border-color: var(--bw-pure-white);
+    transform: scale(1.02); /* Petit effet de pop au survol */
 }
 
 /* --- COMPOSANT DES AVIS --- */
@@ -413,7 +412,7 @@ iframe {
     padding-top: 20px;
 }
 
-/* --- 🎛️ RETOUR EN HAUT (FIXE À DROITE) --- */
+/* --- RETOUR EN HAUT --- */
 .bouton-retour-haut {
     position: fixed;
     bottom: 30px;
@@ -428,7 +427,7 @@ iframe {
     border: 1px solid var(--bw-border);
 }
 
-/* --- 📞 NOUVEAU : BOUTON D'APPEL FLOTTANT (FIXE À GAUCHE SUR MOBILE UNIQUEMENT) --- */
+/* --- BOUTON D'APPEL FLOTTANT MOBILE --- */
 .bouton-appel-flottant {
     position: fixed;
     bottom: 30px;
@@ -441,7 +440,7 @@ iframe {
     font-size: 24px;
     text-decoration: none;
     z-index: 1000;
-    display: none; /* Caché par défaut sur PC */
+    display: none; 
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
@@ -475,7 +474,6 @@ iframe {
 .fleche-nav.gauche { left: -10px; }
 .fleche-nav.droite { right: -10px; }
 
-/* ❌ SUR PC (DESKTOP) : AUCUNE FLÈCHE REQUIS */
 @media screen and (min-width: 769px) {
     .fleche-nav {
         display: none !important;
@@ -494,7 +492,6 @@ iframe {
     h1 { font-size: 2.2rem; }
     h2 { font-size: 1.5rem; }
 
-    /* Rendre visible le bouton d'appel sur smartphone */
     .bouton-appel-flottant {
         display: flex;
     }
@@ -541,7 +538,7 @@ iframe {
     }
 }
 
-/* --- STYLE DU NOUVEAU LOGO TEXTE EN ACCUEIL --- */
+/* --- STYLE DU LOGO TEXTE EN ACCUEIL --- */
 .hero-logo-text {
     max-width: 500px;
     width: 100%;
@@ -560,7 +557,7 @@ iframe {
     }
 }
 
-/* --- 📊 STYLE DU BLOC D'AFFLUENCE JAVASCRIPT --- */
+/* --- 📊 STYLE DU BLOC D'AFFLUENCE --- */
 .widget-affluence {
     background: var(--bg-card);
     border: 1px solid var(--bw-border);
@@ -607,7 +604,7 @@ iframe {
     color: var(--bw-silver);
 }
 
-/* --- 📸 NOUEAU DESIGN DE LA SECTION INSTAGRAM --- */
+/* --- 📸 STYLE DE LA SECTION INSTAGRAM --- */
 .instagram-pitch {
     max-width: 650px;
     margin: -15px auto 30px auto;
@@ -630,4 +627,72 @@ iframe {
     font-weight: 600;
     color: var(--bw-pure-white);
     letter-spacing: 1px;
+}
+
+/* ==============================================
+🖼️ NOUVEAU : STYLE CSS DE LA LIGHTBOX (PLEIN ÉCRAN)
+============================================== */
+.lightbox {
+    display: none; /* Masquée par défaut */
+    position: fixed;
+    z-index: 20000; /* Priorité maximale par-dessus la nav fixe */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.92); /* Fond sombre épuré */
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out; /* Curseur qui indique qu'on va fermer au clic */
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 85%;
+    object-fit: contain;
+    border-radius: 8px;
+    border: 1px solid var(--bw-border);
+    cursor: default; /* Reste normal quand on survole l'image */
+    animation: zoomFluide 0.25s ease-out; /* Pop d'ouverture impeccable */
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 35px;
+    color: var(--bw-pure-white);
+    font-size: 45px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: 0.2s;
+    user-select: none;
+}
+.lightbox-close:hover {
+    color: var(--bw-silver);
+    transform: scale(1.1);
+}
+
+/* Animation fluide d'apparition */
+@keyframes zoomFluide {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Optimisation mobile pour que l'image prenne bien l'espace vertical */
+@media screen and (max-width: 768px) {
+    .lightbox-content {
+        max-width: 95%;
+        max-height: 80%;
+    }
+    .lightbox-close {
+        top: 15px;
+        right: 25px;
+        font-size: 40px;
+    }
 }

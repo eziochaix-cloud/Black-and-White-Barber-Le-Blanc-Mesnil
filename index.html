@@ -30,7 +30,7 @@
       }
     }
     </script>
-
+    <link rel="icon" href="logo-rond.png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,6 +63,9 @@
         <div class="hero-logo-container">
             <img src="logo-texte.png" alt="Black & White Barber" class="hero-logo-text">
         </div>
+        
+       <h2> Dégradés, barbe et coupes modernes au cœur du Blanc-Mesnil.</h2>
+        
         <p class="lead-text">
             Découvrez le salon de coiffure et barbier incontournable du Blanc-Mesnil. Situé au 21 Avenue de la République, juste en face de l'Hôtel de Ville, notre équipe vous accueille dans un cadre moderne et épuré. Profitez de prestations de haute qualité, d'une hygiène stricte et d'un espace chaleureux.
         </p>
@@ -202,8 +205,7 @@
                 <div class="adresse-texte">
                     <h3><i class="fa-solid fa-map-location-dot"></i> Adresse du salon</h3>
                     <p>
-                        21 Av. de la République,<br>
-                        (Face à la Mairie)<br>
+                        21 Av. de la République,
                         93150 Le Blanc-Mesnil
                     </p>
                 </div>
@@ -287,49 +289,67 @@
 <a href="#" class="bouton-retour-haut">↑</a>
 
 <script>
+// --- LOGIQUE D'AFFLUENCE INTELLIGENTE ---
 function calculerAffluence() {
     const maintenant = new Date();
-    const jour = maintenant.getDay(); // 0 = Dimanche, 1 = Lundi, etc.
+    const jour = maintenant.getDay(); 
     const heure = maintenant.getHours();
-    const minute = maintenant.getMinutes();
     
     const badge = document.getElementById('affluence-badge');
     const texte = document.getElementById('affluence-text');
     
     if(!badge || !texte) return;
 
-    // Le salon est ouvert de 10h00 à 20h00, 7j/7
     if (heure >= 10 && heure < 20) {
         if (jour === 5 || jour === 6 || jour === 0) { 
-            // Vendredi, Samedi, Dimanche = Grosses journées
             badge.className = "badge-affluence status-rouge";
             badge.innerText = "🔥 Forte affluence";
             texte.innerText = "Période de week-end très demandée. Un peu d'attente est à prévoir, mais l'équipe dépote !";
         } else if (heure >= 12 && heure < 14) {
-            // Pause déjeuner en semaine
             badge.className = "badge-affluence status-orange";
             badge.innerText = "⚡ Affluence modérée";
             texte.innerText = "C'est la pause déjeuner. Attente raisonnable, installez-vous confortablement.";
         } else if (heure >= 17 && heure < 19) {
-            // Sortie de boulot / école en semaine
             badge.className = "badge-affluence status-orange";
             badge.innerText = "⚡ Affluence modérée";
             texte.innerText = "Créneau de fin de journée. Un peu de passage, les coiffeurs s'occupent de vous rapidement.";
         } else {
-            // Matinées et après-midis en semaine
             badge.className = "badge-affluence status-vert";
             badge.innerText = "🟢 Affluence faible";
             texte.innerText = "C'est le moment idéal ! Très peu d'attente, passez directement sur le fauteuil.";
         }
     } else {
-        // Salon fermé
         badge.className = "badge-affluence status-gris";
         badge.innerText = "💤actuellement fermé";
         texte.innerText = "Le salon réouvre ses portes demain à 10h00 pile sans rendez-vous.";
     }
 }
-// Lancement du calcul au chargement de la page
-document.addEventListener('DOMContentLoaded', calculerAffluence);
+
+// --- 🖼️ NOUVEAU : ENCLENCHEMENT DU PLEIN ÉCRAN PHOTOS ---
+function ouvrirLightbox(element) {
+    const modal = document.getElementById('lightbox-modal');
+    const modalImg = document.getElementById('lightbox-img');
+    modal.style.display = "flex";
+    modalImg.src = element.src;
+    document.body.style.overflow = "hidden"; // Empêche le site de scroller en arrière-plan
+}
+
+function fermerLightbox() {
+    const modal = document.getElementById('lightbox-modal');
+    modal.style.display = "none";
+    document.body.style.overflow = "auto"; // Redonne le droit de scroller le site
+}
+
+// Lancement automatique au chargement global
+document.addEventListener('DOMContentLoaded', () => {
+    calculerAffluence();
+    
+    // Associe le clic sur chaque image de la galerie au système Plein écran
+    const images = document.querySelectorAll('.galerie-container img');
+    images.forEach(img => {
+        img.addEventListener('click', () => ouvrirLightbox(img));
+    });
+});
 </script>
 
 </body>
